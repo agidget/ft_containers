@@ -10,6 +10,8 @@
 #include "vector.hpp"
 #include <map>
 #include <chrono>
+#include "rbTree.hpp"
+#include <set>
 
 // #define RED '1'
 // #define BLACK '2'
@@ -332,5 +334,34 @@ int main()
 		// std::cout << ms_int.count() << "ms\n";
 		// std::cout << ms_double.count() << "ms" << std::endl;
 
+	}
+	{
+		//try rbTree
+		ft::rbTree<int> a;
+		ft::rbTree<int>::iterator it = a.begin();
+		// std::cout << *it << std::endl;
+		a.insert(it, 30);
+		a.insert(it, 10);
+		a.insert(it, 50);
+		a.insert(it, 20);
+		a.insert(it, 40);
+		a.insert(it, 60);
+		a.insert(it, 70);
+		// a.insert(it, 80);
+		// a.insert(it, 90);
+		for (ft::rbTree<int>::iterator iter = a.begin(); it != a.end(); it++)
+			std::cout << *it << std::endl;
+		// it = a.end();
+		// it++;
+		// std::cout << *it << std::endl;
+		std::cout << a.getRoot() << std::endl;
+
+		// ft::rbTree<int> a3;
+		// ft::rbTree<int>::const_iterator it3 = a3.begin();
+		// std::cout << *it3 << std::endl;
+
+		// std::set<int> a2;
+		// std::set<int>::iterator it2 = a2.begin();
+		// std::cout << *it2 << std::endl;
 	}
 }

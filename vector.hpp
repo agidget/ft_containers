@@ -304,7 +304,7 @@ namespace	ft
 			return _alloc;
 		}
 
-	//my methods
+	//my methods (helpers)
 	private:
 
 		void	enoughCapacity(iterator position, size_type n, const value_type& val)

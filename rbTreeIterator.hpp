@@ -20,21 +20,33 @@ namespace ft
 
 		char	color;
 		bool	nil;
-		T		value; //maybe need pointer for the key here??
+		T		*value; //maybe need pointer for the key here??
 		node*	left;
 		node*	right;
 		node*	p;
 
-		node(T value = (T)0)
+		node(T *value = nullptr) : color(RED), nil(false), value(value),
+								left(nullptr), right(nullptr), p(nullptr) {}
+		node(const node& other) // { *this = copy; }
 		{
-			this->color = RED;
-			this->value = value;
-			this->left = nullptr;
-			this->right = nullptr;
-			this->p = nullptr;
-			char nil = false;
+			this->color = other.color;
+			this->nil = other.nil;
+			this->value = other.value;
+			this->left = other.left;
+			this->right = other.right;
+			this->p = other.p;
 		}
-		~node() {};
+		node& operator=(const node& other) // { *this = other; return *this; }
+		{
+			this->color = other.color;
+			this->nil = other.nil;
+			this->value = other.value;
+			this->left = other.left;
+			this->right = other.right;
+			this->p = other.p;
+			return *this;
+		}
+		~node() {}
 	};
 
 	template <class iter>
@@ -45,14 +57,14 @@ namespace ft
 
 	public:
 
-		typedef iter											iterator_type;
-		typedef typename iterator_traits<iter>::difference_type	difference_type;
-		typedef typename iterator_traits<iter>::value_type		value_type;
-		typedef typename iterator_traits<iter>::pointer			pointer;
-		typedef typename iterator_traits<iter>::reference		reference;
-		typedef std::bidirectional_iterator_tag					iterator_category;
+		typedef iter												iterator_type;
+		typedef typename iterator_traits<iter*>::difference_type	difference_type;
+		typedef typename iterator_traits<iter*>::value_type			value_type;
+		typedef typename iterator_traits<iter*>::pointer			pointer;
+		typedef typename iterator_traits<iter*>::reference			reference;
+		typedef std::bidirectional_iterator_tag						iterator_category;
 
-		rbTreeIterator(_iter it = nullptr) : _iter(it) {}
+		explicit rbTreeIterator(node_pnt it = nullptr) : _iter(it) {}
 		template <class U>
 		rbTreeIterator(const rbTreeIterator<U>& it) { this->_iter = it.base(); }
 		~rbTreeIterator() {}
@@ -77,7 +89,7 @@ namespace ft
 		rbTreeIterator& operator++()
 		{
 			if (_iter->right->nil == false)
-				_iter = tree_min(_iter->right);
+				_iter = treeMin(_iter->right);
 			else
 			{
 				node_pnt y = _iter->p;
@@ -95,7 +107,7 @@ namespace ft
 			rbTreeIterator tmp(*this);
 
 			// if (_iter->right->nil == false)
-			// 	_iter = tree_min(_iter->right);
+			// 	_iter = treeMin(_iter->right);
 			// else
 			// {
 			// 	node_pnt y = _iter->p;
@@ -112,7 +124,7 @@ namespace ft
 		rbTreeIterator& operator--()
 		{
 			if (_iter->left->nil == false)
-				_iter = tree_max(_iter->left);
+				_iter = treeMax(_iter->left);
 			else
 			{
 				node_pnt y = _iter->p;
@@ -130,7 +142,7 @@ namespace ft
 			rbTreeIterator tmp(*this);
 
 			// if (_iter->left->nil == false)
-			// 	_iter = tree_max(_iter->left);
+			// 	_iter = treeMax(_iter->left);
 			// else
 			// {
 			// 	node_pnt y = _iter->p;
@@ -147,15 +159,15 @@ namespace ft
 
 	private:
 
-		node_pnt tree_min(node_pnt x)
+		node_pnt treeMin(node_pnt x)
 		{
-			while (x->left->nil == false)
+			while (x && x->left->nil == false)
 				x = x->left;
 			return x;
 		}
-		node_pnt tree_max(node_pnt x)
+		node_pnt treeMax(node_pnt x)
 		{
-			while (x->right->nil == false)
+			while (x && x->right->nil == false)
 				x = x->right;
 			return x;
 		}
