@@ -123,7 +123,7 @@ namespace ft
 		}
 		rbTreeIterator& operator--()
 		{
-			if (_iter->left->nil == false)
+			if (_iter->left && _iter->left->nil == false)
 				_iter = treeMax(_iter->left);
 			else
 			{
@@ -167,7 +167,7 @@ namespace ft
 		}
 		node_pnt treeMax(node_pnt x)
 		{
-			while (x && x->right->nil == false)
+			while (x && x->right && x->right->nil == false)
 				x = x->right;
 			return x;
 		}
