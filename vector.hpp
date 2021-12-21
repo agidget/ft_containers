@@ -77,14 +77,17 @@ namespace	ft
 		}
 		vector& operator= (const vector& x)
 		{
-			for (size_type i = 0; i < _size; i++)
-				_alloc.destroy(_arr + i);
-			_alloc.deallocate(_arr, _size);
-			_size = x._size;
-			_capacity = x._capacity;
-			_arr = _alloc.allocate(_size);
-			for (size_type i = 0; i < _size; i++)
-				_alloc.construct(_arr + i, x._arr[i]);
+			if (this != &x)
+			{
+				for (size_type i = 0; i < _size; i++)
+					_alloc.destroy(_arr + i);
+				_alloc.deallocate(_arr, _size);
+				_size = x._size;
+				_capacity = x._capacity;
+				_arr = _alloc.allocate(_size);
+				for (size_type i = 0; i < _size; i++)
+					_alloc.construct(_arr + i, x._arr[i]);
+			}
 			return *this;
 		}
 

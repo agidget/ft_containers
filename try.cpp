@@ -336,101 +336,230 @@ int main()
 
 	}
 	// {
-	// 	//try rbTree
-	// 	ft::rbTree<int> a;
-	// 	ft::rbTree<int>::iterator it = a.begin();
-	// 	a.insert(it, 30);
-	// 	a.insert(it, 10);
-	// 	a.insert(it, 50);
-	// 	a.insert(it, 20);
-	// 	// // std::cout << *a.insert(it, 30) << std::endl;
-	// 	a.insert(it, 40);
-	// 	a.insert(it, 60);
-	// 	a.insert(it, 70);
-	// 	a.insert(it, 80);
-	// 	a.insert(it, 90);
+		//try rbTree
+		// ft::rbTree<int> a;
+		// ft::rbTree<int>::const_iterator it = a.begin();
+		// a.insert(it, 30);
+		// a.insert(it, 10);
+		// a.insert(it, 50);
+		// a.insert(it, 20);
+		// // // std::cout << *a.insert(it, 30) << std::endl;
+		// a.insert(it, 40);
+		// a.insert(it, 60);
+		// a.insert(it, 70);
+		// a.insert(it, 80);
+		// a.insert(it, 90);
 
-	// 	for (ft::rbTree<int>::iterator iter = a.begin(); iter != a.end(); iter++)
-	// 		std::cout << *iter << std::endl;
-	// 	// // it = a.end();
-	// 	// // it++;
-	// 	// // std::cout << *it << std::endl;
+		// for (ft::rbTree<int>::const_iterator iter = a.begin(); iter != a.end(); iter++)
+		// 	std::cout << *iter << std::endl;
+		// // // it = a.end();
+		// // // it++;
+		// // // std::cout << *it << std::endl;
 
-	// 	std::cout << a.getRoot() << std::endl;
+		// std::cout << a.getRoot() << std::endl;
 
-	// 	std::cout << "--------------------\n";
+		// std::cout << "--------------------\n";
 
-	// 	it = a.find(60);
-	// 	std::cout << *it << std::endl;
+		// it = a.find(60);
+		// std::cout << *it << std::endl;
 
-	// 	it = a.find(600);
-	// 	std::cout << *it << std::endl;
+		// it = a.find(600);
+		// std::cout << *it << std::endl;
 
-	// 	std::cout << a.count(60) << std::endl;
-	// 	std::cout << a.count(600) << std::endl;
+		// std::cout << a.count(60) << std::endl;
+		// std::cout << a.count(600) << std::endl;
 
-	// 	// ft::rbTree<int> a3;
-	// 	// ft::rbTree<int>::const_iterator it3 = a3.begin();
-	// 	// std::cout << *it3 << std::endl;
+		// ft::rbTree<int> a3;
+		// a3.insert(5);
+		// a3.insert(15);
+		// a3.insert(25);
+		// a3.insert(-5);
+		// for (ft::rbTree<int>::const_iterator it3 = a3.begin(); it3 != a3.end(); it3++)
+		// 	std::cout << *it3 << std::endl;
 
-	// 	// std::set<int> a2;
-	// 	// std::set<int>::iterator it2 = a2.begin();
-	// 	// std::cout << *it2 << std::endl;
-	// }
-	// {
-	// 	// std::cout << "--------------------\n\n";
-
-	// 	std::set<int> myset;
-	// 	std::set<int>::iterator it3;
-
-	// 	int myints[]= {5,100,15,80,65,30,35,40};
-	// 	myset.insert (myints,myints+8);
-	// 	std::set<int>::iterator it4 = myset.begin();
-	// 	it4++;
-	// 	it4++;
-	// 	myset.erase(it4);
-	// 	it4 = myset.begin();
-	// 	it4++;
-	// 	myset.erase(it4);
-	// 	myset.erase(40);
-	// 	myset.erase(400);
-	// 	it4 = myset.find(65);
-	// 	myset.erase(it4, myset.end());
-	// 	for (it3=myset.begin(); it3!=myset.end(); ++it3)
-	// 		std::cout << ' ' << *it3;
-	// 	std::cout << '\n';
-	// 	// it3 = myset.find(80);
-	// 	// std::cout << *it3 << std::endl;
-	// 	// it3 = myset.find(600);
-	// 	// std::cout << *it3 << std::endl;
-
-
-	// 	std::cout << "--------------------\n";
-
-	// 	ft::rbTree<int> myset2;
-	// 	ft::rbTree<int>::iterator it2;
-
-	// 	int myints2[]= {5,100,15,80,65,30,35,40};
-	// 	myset2.insert (myints2,myints2+8);
-	// 	ft::rbTree<int>::iterator it5 = myset2.begin();
-	// 	it5++;
-	// 	it5++;
-	// 	myset2.erase(it5);
-	// 	it5 = myset2.begin();
-	// 	it5++;
-	// 	myset2.erase(it5);
-	// 	myset2.erase(40);
-	// 	myset2.erase(400);
-	// 	it5 = myset2.find(65);
-	// 	myset2.erase(it5, myset2.end());
-	// 	it2=myset2.begin();
-	// 	std::cout << ' ' << *it2;
-	// 	// for (it2=myset2.begin(); it2!=myset2.end(); ++it2)
-	// 	// 	std::cout << ' ' << *it2;
-	// 	std::cout << '\n';
+		// std::set<int> a2;
+		// a2.insert(5);
+		// std::set<int>::const_iterator it2 = a2.begin();
+		// a2.insert(it2, 7);
+		// std::cout << *it2 << std::endl;
 	// }
 	{
-		ft::vector<int> a(5,2);
-		ft::vector<int> b(a);
+		// // std::cout << "--------------------\n\n";
+
+		// std::set<int> myset;
+		// std::set<int>::iterator it3;
+
+		// int myints[]= {5,100,15,80,65,30,35,40};
+		// myset.insert (myints,myints+8);
+		// std::set<int>::iterator it4 = myset.begin();
+		// it4++;
+		// it4++;
+		// myset.erase(it4);
+		// it4 = myset.begin();
+		// it4++;
+		// myset.erase(it4);
+		// myset.erase(40);
+		// myset.erase(400);
+		// it4 = myset.find(65);
+		// myset.erase(it4, myset.end());
+		// for (it3=myset.begin(); it3!=myset.end(); ++it3)
+		// 	std::cout << ' ' << *it3;
+		// std::cout << '\n';
+		// // it3 = myset.find(80);
+		// // std::cout << *it3 << std::endl;
+		// // it3 = myset.find(600);
+		// // std::cout << *it3 << std::endl;
+
+
+		std::cout << "--------------------\n";
+
+		ft::rbTree<int> myset3;
+		ft::rbTree<int>::iterator it33;
+
+		int myints3[]= {5,100,15,80,65,30,35,40};
+		myset3.insert (myints3,myints3+8);
+		// myset3.insert(20);
+		// myset3.insert(40);
+		// myset3.insert(-40);
+		// myset3.insert(myset3.begin(), 100);
+		// std::cout << "mainRoot: " << *myset3._root->value << std::endl;
+		ft::rbTree<int>::iterator it43 = myset3.begin();
+		// ft::rbTree<int>::iterator it43aa;
+		it43++;
+		it43++;
+		it43++;
+		// std::cout << "it: " << *it43 << std::endl;
+		// std::cout << "left " << it43.base()->left->is_nil << std::endl;
+		// std::cout << "right " << it43.base()->right->is_nil << std::endl;
+		// myset3.erase(it43);
+		// myset3.erase(30);
+		// std::cout << "BEGIN " << *myset3.begin() << std::endl;
+
+
+		// myset3.erase(30);
+		// myset3.erase(35);
+		// myset3.erase(40);
+		// myset3.erase(65);
+		// myset3.erase(80);
+		// myset3.erase(100);
+
+
+		// std::cout << "mainRoot: " << *myset3.getRoot()->value << std::endl;
+		// it43 = myset3.begin();
+		// it43++;
+		// // std::cout << "del " << *it43 << std::endl;
+		// myset3.erase(it43);
+		// myset3.erase(40);
+		// myset3.erase(400);
+		// it43 = myset3.find(65);
+		// // myset3.erase(it43);
+
+		ft::rbTree<int>::iterator it433 = myset3.end();
+		// it433--;
+		// it433--;
+		// std::cout << "it433: " << *it433 << std::endl;
+
+		myset3.erase(it43, it433);
+		// it43aa = myset3.begin();
+		// it43aa++;
+		// std::cout << "BEGIN+1 " << *it43aa << std::endl;
+		std::cout << "mainRoot: " << *myset3._root->value << std::endl;
+		for (it33=myset3.begin(); it33!=myset3.end(); ++it33)
+		{
+			std::cout << "Value: " << *it33;
+			std::cout << ", Color: " << ((it33.base()->color == '1') ? "RED" : "BLACK");
+			// std::cout << ", Color: " << ((it33.base()->is_black == false) ? "RED" : "BLACK");
+			std::cout << std::endl;
+		}
+		std::cout << '\n';
+
+
+
+		// ft::rbTree<int> myset2;
+		// ft::rbTree<int>::iterator it2;
+
+		// int myints2[]= {5,100,15,80,65,30,35,40};
+		// myset2.insert (myints2,myints2+8);
+		// ft::rbTree<int>::iterator it44 = myset2.begin();
+		// it44++;
+		// it44++;
+		// std::cout << *it44 << std::endl;
+		// // myset2.erase(30);
+		// myset2.erase(it44);
+		// it44 = myset2.begin();
+		// it44++;
+		// myset2.erase(it44);
+		// myset2.erase(40);
+		// myset2.erase(400);
+		// it44 = myset2.find(65);
+		// std::cout << *it44 << std::endl;
+		// myset2.erase(it44, myset2.end());
+		// for (it2=myset2.begin(); it2!=myset2.end(); ++it2)
+		// 	std::cout << ' ' << *it2;
+		// std::cout << '\n';
+
+
+
+
+		// ft::rbTree<int>::iterator it5 = myset2.begin();
+		// it5++;
+		// it5++;
+		// myset2.erase(it5);
+		// it5 = myset2.begin();
+		// it5++;
+		// myset2.erase(it5);
+		// myset2.erase(40);
+		// myset2.erase(400);
+		// std::cout << "size: " << myset2.getSize() << std::endl;
+		// it2=myset2.begin();
+		// std::cout << ' ' << *it2 << std::endl;
+		// it5 = myset2.find(65);
+		// // myset2.erase(myset2.begin());
+		// // ft::rbTree<int>::iterator it6 = it5;
+		// // it6++;
+		// // it6++;
+		// // it6++;
+		// myset2.erase(80);
+		// // myset2.erase(it5, myset2.end());
+		// // std::cout << "min: " << *myset2.treeMin(myset2._root)->value << std::endl;
+		// std::cout << ' ' << *myset2.begin() << std::endl;
+		// // for (it2=myset2.begin(); it2!=myset2.end(); ++it2)
+		// // 	std::cout << ' ' << *it2;
+		// std::cout << '\n';
 	}
+	// {
+	// 	int my[] = {5,100,15,80,65,30,35,40};
+	// 	ft::rbTree<int> a(my, my + 4);
+	// 	ft::rbTree<int> b = a;
+	// 	b.erase(100);
+	// 	std::cout << "a:";
+	// 	for (ft::rbTree<int>::iterator it = a.begin(); it != a.end(); it++)
+	// 		std::cout << " " << *it;
+	// 	std::cout << std::endl;
+	// 	std::cout << "b:";
+	// 	for (ft::rbTree<int>::iterator it = b.begin(); it != b.end(); it++)
+	// 		std::cout << " " << *it;
+	// 	std::cout << std::endl;
+	// }
+	// {
+	// 	ft::rbTree<int> myset;
+
+	// 	myset.insert (100);
+	// 	myset.insert (200);
+	// 	myset.insert (300);
+
+	// 	std::cout << "myset contains:";
+	// 	for (ft::rbTree<int>::iterator it=myset.begin(); it!=myset.end(); ++it)
+	// 		std::cout << ' ' << *it;
+	// 	std::cout << '\n';
+
+	// 	myset.clear();
+	// 	myset.insert (1101);
+	// 	myset.insert (2202);
+
+	// 	std::cout << "myset contains:";
+	// 	for (ft::rbTree<int>::iterator it=myset.begin(); it!=myset.end(); ++it)
+	// 		std::cout << ' ' << *it;
+	// 	std::cout << '\n';
+	// }
 }
