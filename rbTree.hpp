@@ -1,8 +1,6 @@
 #ifndef rbTree_HPP
 # define rbTree_HPP
 
-# include <iostream>
-# include "iterator.hpp"
 # include "rbTreeIterator.hpp"
 # include "utility.hpp"
 # include "algorithm.hpp"
@@ -35,7 +33,7 @@ namespace ft
 		typedef ft::reverse_iterator<iterator>					reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 
-	// private:
+	private:
 
 		allocator_type	_val_alloc;
 		node_allocator	_node_alloc;
@@ -167,6 +165,10 @@ namespace ft
 		{
 			return _node_alloc.max_size();
 		}
+		allocator_type get_allocator() const
+		{
+			return _val_alloc;
+		}
 
 		//modifiers
 
@@ -268,6 +270,7 @@ namespace ft
 			while (first != last)
 				erase(first++);
 		}
+
 		void swap(rbTree& x)
 		{
 			ft::swap(_val_alloc, x._val_alloc);
@@ -290,7 +293,7 @@ namespace ft
 
 		//observer
 
-		value_compare value_com() const
+		value_compare value_comp() const
 		{
 			return _comp;
 		}
@@ -313,9 +316,102 @@ namespace ft
 		}
 		size_type count(const value_type& val) const
 		{
-			if (!isNil(treeSearch(val)))
-				return 1;
-			return 0;
+			node_pointer	x;
+
+			x = treeSearch(val);
+			return  x != NULL ? 1 : 0;
+		}
+		iterator lower_bound(const value_type& val)
+		{
+			node_pointer	x;
+			node_pointer	res;
+
+			x = _root;
+			res = _end;
+			while (!isNil(x))
+			{
+				if (!_comp(*x->value, val))
+				{
+					res = x;
+					x = x->left;
+				}
+				else
+					x = x->right;
+			}
+			return iterator(res);
+		}
+		const_iterator lower_bound(const value_type& val) const
+		{
+			node_pointer	x;
+			node_pointer	res;
+
+			x = _root;
+			res = _end;
+			while (!isNil(x))
+			{
+				if (!_comp(*x->value, val))
+				{
+					res = x;
+					x = x->left;
+				}
+				else
+					x = x->right;
+			}
+			return const_iterator(res);
+		}
+		iterator upper_bound(const value_type& val)
+		{
+			node_pointer	x;
+			node_pointer	res;
+
+			x = _root;
+			res = _end;
+			while (!isNil(x))
+			{
+				if (_comp(val, *x->value))
+				{
+					res = x;
+					x = x->left;
+				}
+				else
+					x = x->right;
+			}
+			return iterator(res);
+		}
+		const_iterator upper_bound(const value_type& val) const
+		{
+			node_pointer	x;
+			node_pointer	res;
+
+			x = _root;
+			res = _end;
+			while (!isNil(x))
+			{
+				if (_comp(val, *x->value))
+				{
+					res = x;
+					x = x->left;
+				}
+				else
+					x = x->right;
+			}
+			return const_iterator(res);
+		}
+		ft::pair<iterator, iterator> equal_range(const value_type& val)
+		{
+			ft::pair<iterator, iterator>	pair;
+
+			pair.first = lower_bound(val);
+			pair.second = upper_bound(val);
+			return pair;
+		}
+		ft::pair<const_iterator, const_iterator> equal_range(const value_type& val) const
+		{
+			ft::pair<const_iterator, const_iterator>	pair;
+
+			pair.first = lower_bound(val);
+			pair.second = upper_bound(val);
+			return pair;
 		}
 
 	//my methods (helpers)
@@ -491,7 +587,6 @@ namespace ft
 			node_pointer	y;
 			char			origColor;
 
-			// y = z;
 			origColor = z->color;
 			if (isNil(z->left))
 			{
@@ -674,6 +769,56 @@ namespace ft
 			return node == _nil || node == _end;
 		}
 	};
+		
+	template <class T, class Compare, class Alloc>
+	bool operator==(const rbTree<T, Compare, Alloc>& lhs,
+					const rbTree<T, Compare, Alloc>& rhs)
+	{
+		return lhs.size() == rhs.size()
+				&& ft::equal(lhs.begin(), lhs.end(), rhs.begin());
+	}
+
+	template <class T, class Compare, class Alloc>
+	bool operator!=(const rbTree<T, Compare, Alloc>& lhs,
+					const rbTree<T, Compare, Alloc>& rhs)
+	{
+		return !(lhs == rhs);
+	}
+
+	template <class T, class Compare, class Alloc>
+	bool operator<(const rbTree<T, Compare, Alloc>& lhs,
+					const rbTree<T, Compare, Alloc>& rhs)
+	{
+		return ft::lexicographical_compare(lhs.begin(), lhs.end(),
+											rhs.begin(), rhs.end());
+	}
+
+	template <class T, class Compare, class Alloc>
+	bool operator>(const rbTree<T, Compare, Alloc>& lhs,
+					const rbTree<T, Compare, Alloc>& rhs)
+	{
+		return rhs < lhs;
+	}
+
+	template <class T, class Compare, class Alloc>
+	bool operator<=(const rbTree<T, Compare, Alloc>& lhs,
+					const rbTree<T, Compare, Alloc>& rhs)
+	{
+		return !(rhs < lhs);
+	}
+
+	template <class T, class Compare, class Alloc>
+	bool operator>=(const rbTree<T, Compare, Alloc>& lhs,
+					const rbTree<T, Compare, Alloc>& rhs)
+	{
+		return !(lhs < rhs);
+	}
+
+	template <class T, class Compare, class Alloc>
+	void swap(rbTree<T, Compare, Alloc>& x, rbTree<T, Compare, Alloc>& y)
+	{
+		x.swap(y);
+	}
 }
 
 

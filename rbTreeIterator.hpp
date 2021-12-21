@@ -27,7 +27,7 @@ namespace ft
 
 		char	color;
 		bool	nil;
-		T		*value; //maybe need pointer for the key here??
+		T		*value;
 		node*	left;
 		node*	right;
 		node*	p;
@@ -43,7 +43,7 @@ namespace ft
 			this->right = other.right;
 			this->p = other.p;
 		}
-		node& operator=(const node& other) // { *this = other; return *this; }
+		node& operator=(const node& other)
 		{
 			this->color = other.color;
 			this->nil = other.nil;
@@ -97,17 +97,12 @@ namespace ft
 		}
 		rbTreeIterator& operator++()
 		{
-			// std::cout << "lol\n";
-			if (_iter->right && _iter->right->nil == false) // && _iter->right->nil == false) // && _iter->right->right->nil == false)
-			{
-				// std::cout << "lol2\n";
+			if (_iter->right && _iter->right->nil == false)
 				_iter = treeMin(_iter->right);
-				// std::cout << "lol3\n";
-			}
 			else
 			{
 				node_pnt y = _iter->p;
-				while (y != NULL && y->nil == false && _iter == y->right)
+				while (y && y->nil == false && _iter == y->right)
 				{
 					_iter = y;
 					y = y->p;
@@ -130,7 +125,7 @@ namespace ft
 			else
 			{
 				node_pnt y = _iter->p;
-				while (y != NULL && y->nil == false && _iter == y->left)
+				while (y && y->nil == false && _iter == y->left)
 				{
 					_iter = y;
 					y = y->p;
@@ -146,73 +141,11 @@ namespace ft
 			--(*this);
 			return tmp;
 		}
-		// rbTreeIterator& operator++() {
-		// 	if (_iter->right && !_iter->right->nil) {
-		// 		_iter = treeMin(_iter->right);
-		// 	}
-		// 	else {
-		// 		node_pnt y = _iter->p;
-		// 		while (y != NULL && _iter == y->right) {
-		// 			_iter = y;
-		// 			y = y->p;
-		// 		}
-		// 		_iter = y;
-		// 	}
-		// 	return *this;
-		// }
-
-		// rbTreeIterator operator++(int) {
-		// 	rbTreeIterator<value_type> temp = *this;
-		// 	if (!_iter->right->nil) {
-		// 		_iter = treeMin(_iter->right);
-		// 	}
-		// 	else {
-		// 		node_pnt y = _iter->p;
-		// 		while (y != NULL && _iter == y->right) {
-		// 			_iter = y;
-		// 			y = y->p;
-		// 		}
-		// 		_iter = y;
-		// 	}
-		// 	return temp;
-		// }
-
-		// rbTreeIterator& operator--() {
-		// 	if (_iter->left && !_iter->left->nil) {
-		// 		_iter = treeMax(_iter->left);
-		// 	}
-		// 	else {
-		// 		node_pnt y = _iter->p;
-		// 		while (y != NULL && _iter == y->left) {
-		// 			_iter = y;
-		// 			y = y->p;
-		// 		}
-		// 		_iter = y;
-		// 	}
-		// 	return *this;
-		// }
-
-		// rbTreeIterator operator--(int) {
-		// 	rbTreeIterator<value_type> temp = *this;
-		// 	if (_iter->left && !_iter->left->nil) {
-		// 		_iter = treeMax(_iter->left);
-		// 	}
-		// 	else {
-		// 		node_pnt y = _iter->p;
-		// 		while (y != NULL && _iter == y->left) {
-		// 			_iter = y;
-		// 			y = y->p;
-		// 		}
-		// 		_iter = y;
-		// 	}
-		// 	return temp;
-		// }
 
 	private:
 
 		node_pnt treeMin(node_pnt x)
 		{
-			// std::cout << "min: " << *x->value << std::endl;
 			while (x->left && x->left->nil == false)
 				x = x->left;
 			return x;
@@ -238,184 +171,5 @@ namespace ft
 		return lhs.base() != rhs.base();
 	}
 }
-
-
-
-
-
-
-
-// namespace ft{
-
-// 	template<class T> struct remove_const { typedef T type; };
-
-// 	template<class T> struct remove_const <const T> { typedef T type; };
-
-// 	template<class Value>
-// 	struct node{
-// 		//typedef node*			pointer;
-// 		public:
-// 		explicit node(Value *srcval = 0) :	value(srcval),
-// 											p(0),
-// 											left(0),
-// 											right(0),
-// 											color(RED),
-// 											nil(0){}
-		
-// 		Value	*value;
-// 		node*	p;
-// 		node*	left;
-// 		node*	right;	
-// 		char	color;
-// 		bool	nil;
-
-// 		node( node const & other) {
-// 			this->color = other.color;
-// 			this->value = other.value;
-// 			this->p = other.p;
-// 			this->nil = other.nil;
-// 			this->right = other.right;
-// 			this->left = other.left;
-// 		};
-
-// 		node& operator=(const node& other){
-// 			this->color = other.color;
-// 			this->value = other.value;
-// 			this->nil = other.nil;
-// 			this->p = other.p;
-// 			this->right = other.right;
-// 			this->left = other.left;
-// 			return *this;
-// 		}	
-// 		virtual ~node(){}
-// 	};
-
-// 	template<typename T>
-// 	class rbTreeIterator {
-// 		public:
-// 			typedef std::bidirectional_iterator_tag 					iterator_category;
-// 			typedef typename ft::iterator_traits<T*>::value_type 		value_type;
-// 			typedef typename ft::iterator_traits<T*>::reference 		reference;
-// 			typedef typename ft::iterator_traits<T*>::pointer			pointer;
-// 			typedef typename ft::iterator_traits<T*>::difference_type	difference_type;
-// 			typedef node<typename ft::remove_const<value_type>::type >* node_pointer;
-
-// 			//typedef node<T>* node_pointer;
-
-// 		private:
-// 			node_pointer _node;
-
-// 			node_pointer tree_min(node_pointer n) const {
-// 				while(n->left != NULL && !n->left->nil)
-// 					n = n->left;
-// 				return n;
-// 			}
-
-// 			node_pointer tree_max(node_pointer n) const {
-// 				while (!n->right->nil)
-// 					n = n->right;
-// 				return n;
-// 			}
-
-// 		public:
-// 			rbTreeIterator() {}
-
-// 			rbTreeIterator(void *node): _node(static_cast<node_pointer>(node)) {}
-
-// 			rbTreeIterator(const rbTreeIterator<typename ft::remove_const<value_type>::type > & other)//: _node(other.node()) {}
-// 			{
-// 				*this = other;
-// 			}
-
-// 			rbTreeIterator& operator=(const rbTreeIterator<typename ft::remove_const<value_type>::type>& other) {
-// 				this->_node = other.base();
-// 				return *this;
-// 			}
-
-// 			reference operator*() const {
-// 				return *(_node->value);
-// 			}
-
-// 			pointer operator->() const {
-// 				return _node->value;
-// 			}
-
-// 			rbTreeIterator& operator++() {
-// 				if (_node->right && !_node->right->nil) {
-// 					_node = tree_min(_node->right);
-// 				}
-// 				else {
-// 					node_pointer y = _node->p;
-// 					while (y != NULL && _node == y->right) {
-// 						_node = y;
-// 						y = y->p;
-// 					}
-// 					_node = y;
-// 				}
-// 				return *this;
-// 			}
-
-// 			rbTreeIterator operator++(int) {
-// 				rbTreeIterator<value_type> temp = *this;
-// 				if (!_node->right->nil) {
-// 					_node = tree_min(_node->right);
-// 				}
-// 				else {
-// 					node_pointer y = _node->p;
-// 					while (y != NULL && _node == y->right) {
-// 						_node = y;
-// 						y = y->p;
-// 					}
-// 					_node = y;
-// 				}
-// 				return temp;
-// 			}
-
-// 			rbTreeIterator& operator--() {
-// 				if (_node->left && !_node->left->nil) {
-// 					_node = tree_max(_node->left);
-// 				}
-// 				else {
-// 					node_pointer y = _node->p;
-// 					while (y != NULL && _node == y->left) {
-// 						_node = y;
-// 						y = y->p;
-// 					}
-// 					_node = y;
-// 				}
-// 				return *this;
-// 			}
-
-// 			rbTreeIterator operator--(int) {
-// 				rbTreeIterator<value_type> temp = *this;
-// 				if (_node->left && !_node->left->nil) {
-// 					_node = tree_max(_node->left);
-// 				}
-// 				else {
-// 					node_pointer y = _node->p;
-// 					while (y != NULL && _node == y->left) {
-// 						_node = y;
-// 						y = y->p;
-// 					}
-// 					_node = y;
-// 				}
-// 				return temp;
-// 			}
-
-// 			node_pointer base() const {
-// 				return _node;
-// 			}
-// 		};	
-
-// 	template<typename A, typename B>
-// 	bool operator==(const rbTreeIterator<A> & lhs, const rbTreeIterator<B> & rhs){
-// 			return (lhs.base() == rhs.base());
-// 		}
-
-// 	template<typename A, typename B>
-// 	bool operator!=(const rbTreeIterator<A> & lhs, const rbTreeIterator<B> & rhs){
-// 			return (lhs.base() != rhs.base());
-// 		}
-// }
 
 #endif
