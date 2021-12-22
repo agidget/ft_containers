@@ -80,7 +80,6 @@ namespace ft
 		reverse_iterator(const reverse_iterator<U>& it)
 		{
 			this->current = it.base();
-			// return *this;
 		}
 
 		//member functions
@@ -91,7 +90,11 @@ namespace ft
 		}
 		reference operator*() const
 		{
-			return *(current - 1);
+			iterator_type	tmp;
+
+			tmp = current;
+			--tmp;
+			return *tmp;
 		}
 		pointer operator->() const
 		{

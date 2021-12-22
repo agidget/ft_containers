@@ -12,6 +12,9 @@
 #include <chrono>
 #include "rbTree.hpp"
 #include <set>
+#include "map.hpp"
+#include "set.hpp"
+#include "stack.hpp"
 
 // #define RED '1'
 // #define BLACK '2'
@@ -475,8 +478,8 @@ int main()
 
 
 
-		// ft::rbTree<int> myset2;
-		// ft::rbTree<int>::iterator it2;
+		// ft::set<int> myset2;
+		// ft::set<int>::iterator it2;
 
 		// int myints2[]= {5,100,15,80,65,30,35,40};
 		// myset2.insert (myints2,myints2+8);
@@ -647,6 +650,308 @@ int main()
 			// for (ft::rbTree<int>::iterator it=second.begin(); it!=second.end(); ++it)
 			// 	std::cout << ' ' << *it;
 			// std::cout << '\n';
+		}
+
+		{
+			// ft::map<char,int> mymap;
+
+			// mymap['b'] = 100;
+			// mymap['a'] = 200;
+			// mymap['c'] = 300;
+
+			// // show content:
+			// for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+			// 	std::cout << it->first << " => " << it->second << '\n';
+
+
+
+			// ft::map<char,int> foo,bar;
+
+			// foo['x']=100;
+			// foo['y']=200;
+
+			// bar['a']=11;
+			// bar['b']=22;
+			// bar['c']=33;
+
+			// swap(foo,bar);
+
+			// std::cout << "foo contains:\n";
+			// for (ft::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
+			// 	std::cout << it->first << " => " << it->second << '\n';
+
+			// std::cout << "bar contains:\n";
+			// for (ft::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
+			// 	std::cout << it->first << " => " << it->second << '\n';
+
+
+
+			// ft::map<char,int> mymap;
+
+			// // first insert function version (single parameter):
+			// mymap.insert ( ft::pair<char,int>('a',100) );
+			// mymap.insert ( ft::pair<char,int>('z',200) );
+
+			// ft::pair<ft::map<char,int>::iterator,bool> ret;
+			// ret = mymap.insert ( ft::pair<char,int>('z',500) );
+			// if (ret.second==false) {
+			// 	std::cout << "element 'z' already existed";
+			// 	std::cout << " with a value of " << ret.first->second << '\n';
+			// }
+
+			// // second insert function version (with hint position):
+			// ft::map<char,int>::iterator it = mymap.begin();
+			// mymap.insert (it, ft::pair<char,int>('b',300));  // max efficiency inserting
+			// mymap.insert (it, ft::pair<char,int>('c',400));  // no max efficiency inserting
+
+			// // third insert function version (range insertion):
+			// ft::map<char,int> anothermap;
+			// anothermap.insert(mymap.begin(),mymap.find('c'));
+
+			// // showing contents:
+			// std::cout << "mymap contains:\n";
+			// for (it=mymap.begin(); it!=mymap.end(); ++it)
+			// 	std::cout << it->first << " => " << it->second << '\n';
+
+			// std::cout << "anothermap contains:\n";
+			// for (it=anothermap.begin(); it!=anothermap.end(); ++it)
+			// 	std::cout << it->first << " => " << it->second << '\n';
+
+
+
+			// ft::map<char,int> mymap;
+			// ft::map<char,int>::iterator it;
+
+			// // insert some values:
+			// mymap['a']=10;
+			// mymap['b']=20;
+			// mymap['c']=30;
+			// mymap['d']=40;
+			// mymap['e']=50;
+			// mymap['f']=60;
+
+			// it=mymap.find('b');
+			// mymap.erase (it);                   // erasing by iterator
+
+			// mymap.erase ('c');                  // erasing by key
+
+			// it=mymap.find ('e');
+			// mymap.erase ( it, mymap.end() );    // erasing by range
+
+			// // show content:
+			// for (it=mymap.begin(); it!=mymap.end(); ++it)
+			// 	std::cout << it->first << " => " << it->second << '\n';
+
+
+
+			// ft::map<char,int> mymap;
+			// std::map<char,int> mymap2;
+			// std::cout << mymap.max_size() << std::endl;
+			// std::cout << mymap2.max_size() << std::endl;
+
+
+
+			// ft::map<char,int> mymap;
+			// ft::map<char,int>::iterator itlow,itup;
+
+			// mymap['a']=20;
+			// mymap['b']=40;
+			// mymap['c']=60;
+			// mymap['d']=80;
+			// mymap['e']=100;
+
+			// itlow=mymap.lower_bound ('b');  // itlow points to b
+			// itup=mymap.upper_bound ('d');   // itup points to e (not d!)
+
+			// mymap.erase(itlow,itup);        // erases [itlow,itup)
+
+			// // print content:
+			// for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+			// 	std::cout << it->first << " => " << it->second << '\n';
+
+		}
+		{
+			// int myints[] = {75,23,65,42,13};
+			// ft::set<int> myset (myints,myints+5);
+
+			// std::cout << "myset contains:";
+			// for (ft::set<int>::iterator it=myset.begin(); it!=myset.end(); ++it)
+			// 	std::cout << ' ' << *it;
+
+			// std::cout << '\n';
+
+
+			// ft::set<int> myset;
+			// ft::set<int>::iterator it;
+			// ft::pair<ft::set<int>::iterator,bool> ret;
+
+			// // set some initial values:
+			// for (int i=1; i<=5; ++i) myset.insert(i*10);    // set: 10 20 30 40 50
+
+			// ret = myset.insert(20);               // no new element inserted
+
+			// if (ret.second==false) it=ret.first;  // "it" now points to element 20
+
+			// myset.insert (it,25);                 // max efficiency inserting
+			// myset.insert (it,24);                 // max efficiency inserting
+			// myset.insert (it,26);                 // no max efficiency inserting
+
+			// int myints[]= {5,10,15};              // 10 already in set, not inserted
+			// myset.insert (myints,myints+3);
+
+			// std::cout << "myset contains:";
+			// for (it=myset.begin(); it!=myset.end(); ++it)
+			// 	std::cout << ' ' << *it;
+			// std::cout << '\n';
+
+
+			// ft::set<int> myset;
+			// ft::set<int>::iterator it;
+
+			// // insert some values:
+			// for (int i=1; i<10; i++) myset.insert(i*10);  // 10 20 30 40 50 60 70 80 90
+
+			// it = myset.begin();
+			// ++it;
+
+			// myset.erase (it);
+
+			// myset.erase (40);
+
+			// ft::set<int>::iterator it2 = myset.find (60);
+			// // ft::set<int>::iterator it2 = myset.end();
+			// myset.erase (it2, myset.end());
+
+			// std::cout << "myset contains:";
+			// for (it=myset.begin(); it!=myset.end(); ++it)
+			// 	std::cout << ' ' << *it;
+			// std::cout << '\n';
+
+
+
+			// ft::set<int> myset;
+			// ft::set<int>::iterator itlow,itup;
+
+			// for (int i=1; i<10; i++) myset.insert(i*10); // 10 20 30 40 50 60 70 80 90
+
+			// itlow=myset.lower_bound (30);                //       ^
+			// itup=myset.upper_bound (60);                 //                   ^
+
+			// myset.erase(itlow,itup);                     // 10 20 70 80 90
+
+			// std::cout << "myset contains:";
+			// for (ft::set<int>::iterator it=myset.begin(); it!=myset.end(); ++it)
+			// 	std::cout << ' ' << *it;
+			// std::cout << '\n';
+
+
+			// ft::set<int> myset;
+
+			// for (int i=1; i<=5; i++) myset.insert(i*10);   // myset: 10 20 30 40 50
+
+			// ft::pair<ft::set<int>::const_iterator,ft::set<int>::const_iterator> ret;
+			// ret = myset.equal_range(30);
+
+			// std::cout << "the lower bound points to: " << *ret.first << '\n';
+			// std::cout << "the upper bound points to: " << *ret.second << '\n';
+
+
+			// ft::set<int> foo,bar;
+			// foo.insert(10);
+			// bar.insert(20);
+			// bar.insert(30);
+			// foo.insert(40);
+
+			// // foo ({10,40}) vs bar ({20,30}):
+			// if (foo==bar) std::cout << "foo and bar are equal\n";
+			// if (foo!=bar) std::cout << "foo and bar are not equal\n";
+			// if (foo< bar) std::cout << "foo is less than bar\n";
+			// if (foo> bar) std::cout << "foo is greater than bar\n";
+			// if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
+			// if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
+
+			// ft::map<char,int> foo,bar;
+			// foo['a']=100;
+			// foo['b']=200;
+			// bar['a']=10;
+			// bar['z']=1000;
+
+			// // foo ({{a,100},{b,200}}) vs bar ({a,10},{z,1000}}):
+			// if (foo==bar) std::cout << "foo and bar are equal\n";
+			// if (foo!=bar) std::cout << "foo and bar are not equal\n";
+			// if (foo< bar) std::cout << "foo is less than bar\n";
+			// if (foo> bar) std::cout << "foo is greater than bar\n";
+			// if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
+			// if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
+
+		}
+
+		{
+			// ft::stack<int> mystack;
+
+			// for (int i=0; i<5; ++i) mystack.push(i);
+
+			// std::cout << "Popping out elements...";
+			// while (!mystack.empty())
+			// {
+			// 	std::cout << ' ' << mystack.top();
+			// 	mystack.pop();
+			// }
+			// std::cout << '\n';
+
+			// ft::stack<int> myints;
+			// std::cout << "0. size: " << myints.size() << '\n';
+
+			// for (int i=0; i<5; i++) myints.push(i);
+			// std::cout << "1. size: " << myints.size() << '\n';
+
+			// myints.pop();
+			// std::cout << "2. size: " << myints.size() << '\n';
+
+			// ft::stack<int> mystack;
+			// int sum (0);
+
+			// for (int i=1;i<=10;i++) mystack.push(i);
+
+			// while (!mystack.empty())
+			// {
+			// 	sum += mystack.top();
+			// 	mystack.pop();
+			// }
+
+			// std::cout << "total: " << sum << '\n';
+		}
+		{
+			// ft::map<char,int> mymap;
+
+			// mymap['x'] = 100;
+			// mymap['y'] = 200;
+			// mymap['z'] = 300;
+
+			// // show content:
+			// ft::map<char,int>::reverse_iterator rit;
+			// for (rit=mymap.rbegin(); rit!=mymap.rend(); ++rit)
+			// 	std::cout << rit->first << " => " << rit->second << '\n';
+
+
+			// ft::map<char,int> foo,bar;
+
+			// foo['x']=100;
+			// foo['y']=200;
+
+			// bar['a']=11;
+			// bar['b']=22;
+			// bar['c']=33;
+
+			// foo.swap(bar);
+
+			// std::cout << "foo contains:\n";
+			// for (ft::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
+			// 	std::cout << it->first << " => " << it->second << '\n';
+
+			// std::cout << "bar contains:\n";
+			// for (ft::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
+			// 	std::cout << it->first << " => " << it->second << '\n';
 		}
 
 }

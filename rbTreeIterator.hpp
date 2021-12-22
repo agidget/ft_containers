@@ -1,7 +1,6 @@
 #ifndef RBTREE_ITERATOR_HPP
 # define RBTREE_ITERATOR_HPP
 
-# include <iostream>
 # include "iterator.hpp"
 
 # define RED '1'

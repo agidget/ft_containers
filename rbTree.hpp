@@ -45,14 +45,8 @@ namespace ft
 
 	public:
 
-		//delete
-		node_pointer getRoot()
-		{
-			return _root;
-		}
-
 		//Coplien form
-		explicit rbTree(const Compare &comp = value_compare(),
+		explicit rbTree(const Compare &comp,
 						const allocator_type& alloc = allocator_type()) :
 			_val_alloc(alloc), _node_alloc(node_allocator()), _comp(comp), _size(0)
 		{
@@ -176,6 +170,7 @@ namespace ft
 		{
 			node_pointer	newNode;
 			node_pointer	maxNode;
+			node_pointer	minNode;
 
 			newNode = treeSearch(val);
 			if (newNode)
@@ -191,16 +186,27 @@ namespace ft
 			_nil->left = treeMin(_root);
 			_nil->right = treeMax(_root);
 			_nil->p = _root;
-			//changed here
-			maxNode = treeMax(_root);
+			if (_size != 1)
+			{
+				maxNode = treeMax(_root);
+				minNode = treeMin(_root);
+			}
+			else
+			{
+				maxNode = _root;
+				minNode = _root;
+			}
 			maxNode->right = _end;
 			_end->p = maxNode;
+			_nil->right = maxNode;
+			_nil->left = minNode;
 			return ft::pair<iterator, bool>(iterator(newNode), true);
 		}
 		iterator insert(iterator position, const value_type& val)
 		{
 			node_pointer	newNode;
 			node_pointer	maxNode;
+			node_pointer	minNode;
 
 			newNode = treeSearch(val);
 			if (newNode)
@@ -213,13 +219,21 @@ namespace ft
 			newNode->right = _nil;
 			rbInsert(newNode);
 			_size++;
-			_nil->left = treeMin(_root);
-			_nil->right = treeMax(_root);
 			_nil->p = _root;
-			//changed here
-			maxNode = treeMax(_root);
+			if (_size != 1)
+			{
+				maxNode = treeMax(_root);
+				minNode = treeMin(_root);
+			}
+			else
+			{
+				maxNode = _root;
+				minNode = _root;
+			}
 			maxNode->right = _end;
 			_end->p = maxNode;
+			_nil->right = maxNode;
+			_nil->left = minNode;
 			return iterator(newNode);
 		}
 		template <class InputIterator>
@@ -235,22 +249,31 @@ namespace ft
 			node_pointer	del;
 			node_pointer	tmp;
 			node_pointer	maxNode;
+			node_pointer	minNode;
 
 			del = position.base();
 			tmp = del;
 			rbDelete(del);
 			clearNode(tmp);
 			_size--;
-			_nil->left = treeMin(_root);
-			_nil->right = treeMax(_root);
-			_nil->p = _root;
 			if (_size == 0)
 				_root = _end;
 			else
 			{
-				maxNode = treeMax(_root);
+				if (_size != 1)
+				{
+					maxNode = treeMax(_root);
+					minNode = treeMin(_root);
+				}
+				else
+				{
+					maxNode = _root;
+					minNode = _root;
+				}
 				maxNode->right = _end;
 				_end->p = maxNode;
+				_nil->right = maxNode;
+				_nil->left = minNode;
 			}
 		}
 		size_type erase(const value_type& val)
@@ -419,13 +442,13 @@ namespace ft
 
 		node_pointer treeMin(node_pointer x) const
 		{
-			while (x && !isNil(x->left))
+			while (x && !isNil(x->left) && x != x->left)
 				x = x->left;
 			return x;
 		}
 		node_pointer treeMax(node_pointer x) const
 		{
-			while (x && !isNil(x->right))
+			while (x && !isNil(x->right) && x != x->right)
 				x = x->right;
 			return x;
 		}
@@ -701,9 +724,9 @@ namespace ft
 			node_pointer	x;
 
 			x = _root;
-			while (x && !isNil(x) && val != *x->value)
+			while (x && !isNil(x) && (_comp(*x->value, val) || _comp(val, *x->value)))
 			{
-				if (val < *x->value)
+				if (_comp(val, *x->value))
 					x = x->left;
 				else
 					x = x->right;
@@ -712,6 +735,7 @@ namespace ft
 				return NULL;
 			return x;
 		}
+
 		void clearNode(node_pointer x)
 		{
 			_val_alloc.destroy(x->value);

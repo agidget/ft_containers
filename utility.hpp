@@ -2,10 +2,11 @@
 # define UTILITY_HPP
 
 # include "algorithm.hpp"
+# include "iterator.hpp"
+# include "type_traits.hpp"
 
 namespace ft
 {
-
 	template <class T1, class T2>
 	struct pair
 	{
@@ -80,6 +81,11 @@ namespace ft
 	{
 		return !(lhs < rhs);
 	}
+
+
+
+	//delete (here because of the test)
+	//--------------------------------------------------
 }
 
 #endif

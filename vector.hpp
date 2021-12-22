@@ -1,9 +1,7 @@
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
-# include <iostream>
 # include <memory>
-# include <cstddef>
 # include "iterator.hpp"
 # include "vectorIterator.hpp"
 # include <stdexcept>
