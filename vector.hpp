@@ -134,10 +134,16 @@ namespace	ft
 		}
 		void resize(size_type n, value_type val = value_type())
 		{
+			if (n > max_size())
+				throw std::length_error("vector");
 			if (_size < n)
 				insert(end(), n - _size, val);
 			else if (_size > n)
-				erase(begin() + n, end());
+			{
+				for (size_type i = n; i < _size; i++)
+					_alloc.destroy(&_arr[i]);
+				_size = n;
+			}
 		}
 		size_type capacity() const
 		{
@@ -158,13 +164,13 @@ namespace	ft
 					pointer tmp = _alloc.allocate(n);
 					for (size_type i = 0; i < _size; i++)
 						_alloc.construct(&tmp[i], _arr[i]);
-					this->~vector();
+					_alloc.deallocate(_arr, _capacity);
 					_capacity = n;
 					_arr = tmp;
 				}
 				catch(...)
 				{
-					this->~vector();
+					_alloc.deallocate(_arr, _capacity);
 					throw;
 				}
 			}
@@ -213,13 +219,37 @@ namespace	ft
 		void assign(InputIterator first, InputIterator last,
 					typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
 		{
+			if (first > last)
+				std::logic_error("vector");
 			clear();
-			insert(begin(), first, last);
+			size_type	dif = static_cast<size_type>(last - first);
+			size_type	m;
+			if (_capacity < dif)
+			{
+				m = (_capacity * 2 > dif) ? _capacity * 2 : dif;
+				_alloc.deallocate(_arr, _capacity);
+				_arr = _alloc.allocate(m);
+				_capacity = m;
+			}
+			for (iterator pos = begin(); first != last; pos++, first++)
+				_alloc.construct(pos.base(), *first);
+			_size = dif;
 		}
 		void assign(size_type n, const value_type& val)
 		{
+			size_type	m;
 			clear();
-			insert(begin(), n, val);
+			if (_capacity < n)
+			{
+				m = (_capacity * 2 > n) ? _capacity * 2 : n;
+				_alloc.deallocate(_arr, _capacity);
+				_arr = _alloc.allocate(m);
+				_capacity = m;
+			}
+			for (size_type i = 0; i < n; i++)
+				_alloc.construct(&_arr[i], val);
+			_size = n;
+			
 		}
 		void push_back(const value_type& val)
 		{
@@ -244,26 +274,63 @@ namespace	ft
 				throw std::length_error("vector");
 			else
 			{
-				try
+				size_type	dif = static_cast<size_type>(position - begin());
+				if (_size + n > _capacity)
 				{
-					insertElements(position, n, val);
+					size_type	newCapacity;
+					if (_size + n <= _capacity * 2)
+						newCapacity = _capacity * 2;
+					else
+						newCapacity = _size + n;
+					pointer tmp = _alloc.allocate(newCapacity);
+					std::uninitialized_copy(begin(), position, iterator(tmp));
+					try
+					{
+						for (size_type i = 0; i < n; i++)
+							_alloc.construct(&tmp[dif + i], val);
+					}
+					catch (...)
+					{
+						for (size_type i = 0; i < dif + n; i++)
+							_alloc.destroy(&_arr[i]);
+						_alloc.deallocate(tmp, newCapacity);
+						throw;
+					}
+					std::uninitialized_copy(position, end(), iterator(&tmp[dif + n]));
+					_alloc.deallocate(_arr, _capacity);
+					_capacity = newCapacity;
+					_arr = tmp;
 				}
-				catch(...)
+				else
 				{
-					this->~vector();
-					throw;
+					for (size_type i = _size; i > dif; i--)
+					{
+						_alloc.destroy(&_arr[i + n - 1]);
+						_alloc.construct(&_arr[i + n - 1], _arr[i - 1]);
+					}
+					for (size_type i = 0; i < n; i++)
+					{
+						_alloc.destroy(&_arr[dif + i]);
+						_alloc.construct(&_arr[dif + i], val);
+					}
 				}
+				_size += n;
 			}
 		}
 		template <class InputIterator>
 		void insert(iterator position, InputIterator first, InputIterator last,
 					typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
 		{
-			if (first < last)
-			{
-				for (; first != last; first++, position++)
-					position = insert(position, *first);
-			}
+			// if (first < last)
+			// {
+			// }
+			if (position < begin() || position > end() || first > last)
+				throw std::logic_error("vector");
+			// size_type	dif = static_cast<size_type>(position - begin());
+			// size_type	dif2 = static_cast<size_type>(last - first);
+			for (; first != last; first++, position++)
+				position = insert(position, *first);
+			
 		}
 		iterator erase(iterator position)
 		{
@@ -271,8 +338,10 @@ namespace	ft
 		}
 		iterator erase(iterator first, iterator last)
 		{
+			if (first > last)
+				throw std::logic_error("vector");
 			difference_type dif = last - first;
-			if (first < last && first != end())
+			if (first != end())
 			{
 				iterator tmp = last;
 				for (; first != end(); first++, tmp++)
@@ -281,7 +350,7 @@ namespace	ft
 					if (first < last)
 						_alloc.construct(first.base(), *tmp);
 				}
-				_size -= dif;
+				_size -= static_cast<size_type>(dif);
 			}
 			return first;
 		}
@@ -294,8 +363,8 @@ namespace	ft
 		}
 		void clear()
 		{
-			for (iterator it = begin(); it != end(); it++)
-				_alloc.destroy(it.base());
+			for (size_type i = 0; i < _size; i++)
+				_alloc.destroy(&_arr[i]);
 			_size = 0;
 		}
 
@@ -306,56 +375,7 @@ namespace	ft
 		}
 
 	//my methods (helpers)
-	private:
-
-		void	enoughCapacity(iterator position, size_type n, const value_type& val)
-		{
-			for (size_type count = _size - 1, i = n; i; count--, i--)
-				_alloc.construct(&_arr[count + n], _arr[count]);
-			if (position + n < end())
-			{
-				for (iterator pos = end(); pos != position + n; --pos)
-				{
-					_alloc.destroy(pos.base());
-					_alloc.construct(pos.base(), *(pos - n));
-				}
-			}
-			for (iterator pos = position; pos != position + n; pos++)
-			{
-				_alloc.destroy(pos.base());
-				_alloc.construct(pos.base(), val);
-			}
-			_size += n;
-		}
-		void	moreCapacity(iterator position, size_type n, const value_type& val)
-		{
-			size_t	newCapacity;
-			difference_type	dif = position - begin();
-			difference_type	dif2 = position - end();
-			if (_size + n <= _capacity * 2)
-				newCapacity = _capacity * 2;
-			else
-				newCapacity = _size + n;
-			pointer tmp = _alloc.allocate(newCapacity);
-			size_type i = 0;
-			for (; i < dif; i++)
-				_alloc.construct(&tmp[i], _arr[i]);
-			for (size_type j = i; j < i + n; j++)
-				_alloc.construct(&tmp[j], val);
-			for (; i < _size; i++)
-				_alloc.construct(&tmp[i + n], _arr[i]);
-			this->~vector();
-			_size += (dif2 > 0) ? n + dif2 : n;
-			_capacity = newCapacity;
-			_arr = tmp;
-		}
-		void	insertElements(iterator position, size_type n, const value_type& val)
-		{
-			if (_size + n <= _capacity)
-				enoughCapacity(position, n, val);
-			else 
-				moreCapacity(position, n, val);
-		}
+	// private:
 	};
 
 
