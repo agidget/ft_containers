@@ -32,9 +32,9 @@ namespace ft
 
 	private:
 
-		tree			_tree;
 		value_compare	_comp;
 		allocator_type	_alloc;
+		tree			_tree;
 
 	public:
 

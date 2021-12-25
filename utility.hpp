@@ -81,11 +81,6 @@ namespace ft
 	{
 		return !(lhs < rhs);
 	}
-
-
-
-	//delete (here because of the test)
-	//--------------------------------------------------
 }
 
 #endif

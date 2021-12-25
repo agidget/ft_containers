@@ -207,7 +207,9 @@ namespace ft
 			node_pointer	newNode;
 			node_pointer	maxNode;
 			node_pointer	minNode;
+			iterator		pos;
 
+			pos = position;
 			newNode = treeSearch(val);
 			if (newNode)
 				return iterator(newNode);

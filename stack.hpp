@@ -3,6 +3,7 @@
 
 # include <iostream>
 # include <deque>
+# include "vector.hpp"
 
 namespace ft
 {
@@ -18,8 +19,7 @@ namespace ft
 		container_type		_container;
 
 	public:
-		explicit stack(const container_type& ctnr = container_type()) :
-			_container(ctnr) {}
+		explicit stack(const container_type& ctnr = container_type()) :_container(ctnr) {}
 		stack(const stack& x) : _container(x._container) {}
 		stack& operator= (const stack& x)
 		{

@@ -43,9 +43,9 @@ namespace ft
 
 	private:
 
-		tree			_tree;
 		key_compare		_comp;
 		allocator_type	_alloc;
+		tree			_tree;
 
 	public:
 

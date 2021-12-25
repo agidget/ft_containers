@@ -954,4 +954,80 @@ int main()
 			// 	std::cout << it->first << " => " << it->second << '\n';
 		}
 
+		{
+			//for weird tests
+
+			//map swap
+			// std::map<char,int> foo,bar;
+
+			// foo['x']=100;
+			// foo['y']=200;
+
+			// bar['a']=11;
+			// bar['b']=22;
+			// bar['c']=33;
+
+			// foo.swap(bar);
+
+			// std::cout << "foo contains:\n";
+			// for (std::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
+			// 	std::cout << it->first << " => " << it->second << '\n';
+
+			// std::cout << "bar contains:\n";
+			// for (std::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
+			// 	std::cout << it->first << " => " << it->second << '\n';
+
+			//answer
+			// foo contains:
+			// a => 11
+			// b => 22
+			// c => 33
+			// bar contains:
+			// x => 100
+			// y => 200
+
+
+			//set swap
+			// int myints[]={12,75,10,32,20,25};
+			// std::set<int> first (myints,myints+3);     // 10,12,75
+			// std::set<int> second (myints+3,myints+6);  // 20,25,32
+
+			// first.swap(second);
+
+			// std::cout << "first contains:";
+			// for (std::set<int>::iterator it=first.begin(); it!=first.end(); ++it)
+			// 	std::cout << ' ' << *it;
+			// std::cout << '\n';
+
+			// std::cout << "second contains:";
+			// for (std::set<int>::iterator it=second.begin(); it!=second.end(); ++it)
+			// 	std::cout << ' ' << *it;
+			// std::cout << '\n';
+
+			//answer
+			// first contains: 20 25 32
+			// second contains: 10 12 75
+
+
+			//vector erase
+			std::vector<int> myvector;
+
+			// set some values (from 1 to 10)
+			for (int i=1; i<=10; i++) myvector.push_back(i);
+
+			// erase the 6th element
+			myvector.erase (myvector.begin()+5);
+
+			// erase the first 3 elements:
+			myvector.erase (myvector.begin(),myvector.begin()+3);
+
+			std::cout << "myvector contains:";
+			for (unsigned i=0; i<myvector.size(); ++i)
+				std::cout << ' ' << myvector[i];
+			std::cout << '\n';
+
+			//answer
+			// myvector contains: 4 5 7 8 9 10
+		}
+
 }
