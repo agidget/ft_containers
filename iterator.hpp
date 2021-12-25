@@ -63,6 +63,8 @@ namespace ft
 											typename iterator_traits<Iterator>::pointer,
 											typename iterator_traits<Iterator>::reference>
 	{
+	public:
+
 		typedef typename iterator_traits<Iterator>::difference_type	difference_type;
 		typedef typename iterator_traits<Iterator>::pointer			pointer;
 		typedef typename iterator_traits<Iterator>::reference		reference;

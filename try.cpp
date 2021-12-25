@@ -958,24 +958,24 @@ int main()
 			//for weird tests
 
 			//map swap
-			// std::map<char,int> foo,bar;
+			ft::map<char,int> foo,bar;
 
-			// foo['x']=100;
-			// foo['y']=200;
+			foo['x']=100;
+			foo['y']=200;
 
-			// bar['a']=11;
-			// bar['b']=22;
-			// bar['c']=33;
+			bar['a']=11;
+			bar['b']=22;
+			bar['c']=33;
 
-			// foo.swap(bar);
+			foo.swap(bar);
 
-			// std::cout << "foo contains:\n";
-			// for (std::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
-			// 	std::cout << it->first << " => " << it->second << '\n';
+			std::cout << "foo contains:\n";
+			for (ft::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
+				std::cout << it->first << " => " << it->second << '\n';
 
-			// std::cout << "bar contains:\n";
-			// for (std::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
-			// 	std::cout << it->first << " => " << it->second << '\n';
+			std::cout << "bar contains:\n";
+			for (ft::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
+				std::cout << it->first << " => " << it->second << '\n';
 
 			//answer
 			// foo contains:
@@ -1010,24 +1010,32 @@ int main()
 
 
 			//vector erase
-			std::vector<int> myvector;
+			// std::vector<int> myvector;
 
-			// set some values (from 1 to 10)
-			for (int i=1; i<=10; i++) myvector.push_back(i);
+			// // set some values (from 1 to 10)
+			// for (int i=1; i<=10; i++) myvector.push_back(i);
 
-			// erase the 6th element
-			myvector.erase (myvector.begin()+5);
+			// // erase the 6th element
+			// myvector.erase (myvector.begin()+5);
 
-			// erase the first 3 elements:
-			myvector.erase (myvector.begin(),myvector.begin()+3);
+			// // erase the first 3 elements:
+			// myvector.erase (myvector.begin(),myvector.begin()+3);
 
-			std::cout << "myvector contains:";
-			for (unsigned i=0; i<myvector.size(); ++i)
-				std::cout << ' ' << myvector[i];
-			std::cout << '\n';
+			// std::cout << "myvector contains:";
+			// for (unsigned i=0; i<myvector.size(); ++i)
+			// 	std::cout << ' ' << myvector[i];
+			// std::cout << '\n';
 
 			//answer
 			// myvector contains: 4 5 7 8 9 10
 		}
+
+
+		// {
+		// 	std::vector<int>::iterator it1;
+		// 	std::vector<int>::const_iterator it2;
+
+		// 	it1 > it2;
+		// }
 
 }
